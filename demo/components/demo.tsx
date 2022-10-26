@@ -44,8 +44,9 @@ const questions = [
     id: "topic",
     options: [
       "NATS for micro-service architectures",
-      "NATS at the edge with Leaf Nodes",
       "Persistence with NATS JetStream",
+      "NATS at the edge with Leaf Nodes",
+      "Scaling NATS globally with Clusters and Superclusters",
     ],
   },
   {
