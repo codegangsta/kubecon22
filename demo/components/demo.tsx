@@ -7,6 +7,7 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 type DemoProps = {
   name: string
+  server: string
 }
 
 type Question = {
@@ -64,7 +65,7 @@ export const Demo = (props: DemoProps) => {
   const [survey, setSurvey] = useState<any>({ name: props.name })
   const [surveyData, setSurveyData] = useState<Array<any>>([])
   const [logs, setLogs] = useState<Array<string>>([])
-  const [submitted, setSubmitted] = useState(false)
+  const [submitted, setSubmitted] = useState(localStorage.getItem("survey") == "true")
   const [wonLottery, setWonLottery] = useState(false)
 
   const updateSurvey = (k: string, v: string) => {
@@ -77,10 +78,12 @@ export const Demo = (props: DemoProps) => {
     log(`Submitting survey: ${JSON.stringify(survey)}`)
     nc.current?.publish("kubecon.survey", jc.encode(survey))
     setSubmitted(true)
+    localStorage.setItem("name", props.name)
+    localStorage.setItem("survey", "true")
   }
 
   const seriesData = (question: Question) => {
-    return question.options.map((option, i) => {
+    return question.options.map((option) => {
       var n = 0
       surveyData.forEach((data) => {
         if (data[question.id] == option) {
@@ -101,12 +104,11 @@ export const Demo = (props: DemoProps) => {
     async function natsConnect() {
       const sc = StringCodec();
       const jc = JSONCodec();
-      const server = "ws://0.0.0.0:5222"
 
       if (!nc.current) {
         log("Connecting to NATS...")
-        nc.current = await connect({ servers: [server] });
-        log(`Connected to ${server}`)
+        nc.current = await connect({ servers: [props.server] });
+        log(`Connected to ${props.server}`)
       }
 
       subscribe(nc.current, "kubecon.rolecall", (m) => {
@@ -137,7 +139,7 @@ export const Demo = (props: DemoProps) => {
     }
 
     natsConnect()
-  }, [props.name])
+  }, [props.name, props.server])
 
   return (
     <div>

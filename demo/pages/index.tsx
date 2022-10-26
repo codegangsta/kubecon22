@@ -1,11 +1,20 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Demo } from '../components/demo'
+
+const server = process.env.NEXT_PUBLIC_NATS_SERVER_URL || ""
 
 const Home: NextPage = () => {
   const [text, setText] = useState("")
   const [name, setName] = useState("")
+
+  useEffect(() => {
+    const n = localStorage.getItem("name")
+    if (n != null) {
+      setName(n)
+    }
+  }, [])
 
   return (
     <div className="container mx-auto flex w-screen pt-16 justify-center px-4">
@@ -46,7 +55,7 @@ const Home: NextPage = () => {
       )}
 
       {name != "" && (
-        <Demo name={name} />
+        <Demo name={name} server={server} />
       )}
 
     </div>
