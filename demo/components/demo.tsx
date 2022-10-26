@@ -126,52 +126,71 @@ export const Demo = (props: DemoProps) => {
     <div>
 
       {!submitted && (
-        <>
-          {questions.map((question, i) => (
-            <div key={i}>
-              <div>
-                <label className="text-base font-medium text-gray-900">{question.label}</label>
-                <fieldset className="mt-4">
-                  <div className="space-y-4">
-                    {question.options.map((option) => (
-                      <div key={option} className="flex items-center">
-                        <input
-                          id={option}
-                          name={question.id}
-                          type="radio"
-                          className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                          onChange={() => updateSurvey(question.id, option)}
-                        />
-                        <label htmlFor={option} className="ml-3 block text-sm font-medium text-gray-700">
-                          {option}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </fieldset>
+        <div className="bg-white shadow rounded-lg">
+          <div className="px-4 py-5 sm:p-6">
+            {questions.map((question, i) => (
+              <div key={i} className="mb-8">
+                <div>
+                  <label className="text-base font-medium text-gray-900">{question.label}</label>
+                  <fieldset className="mt-4">
+                    <div className="space-y-3">
+                      {question.options.map((option) => (
+                        <div key={option} className="flex items-center">
+                          <input
+                            id={option}
+                            name={question.id}
+                            type="radio"
+                            className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                            onChange={() => updateSurvey(question.id, option)}
+                          />
+                          <label htmlFor={option} className="ml-3 block text-sm font-medium text-gray-700">
+                            {option}
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </fieldset>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
 
-          <button type="submit" onClick={submitSurvey}>Submit</button>
-        </>
+            <button type="submit"
+              className="mt-3 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+              onClick={submitSurvey}>Submit</button>
+          </div>
+        </div>
       )}
 
       {submitted && (
-        <>
-          {questions.map((question, i) => (
-            <Chart key={i} type="donut" options={{
-              labels: question.options,
-            }} series={seriesData(question)} />
-          ))}
-        </>
+        <div className="mb-8">
+          <h2 className="text-3xl mb-6 text-bold">Survey Results</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {questions.map((question, i) => (
+              <div key={i} className="bg-white shadow rounded-lg">
+                <div className="px-4 py-5 sm:p-6">
+                  <h3 className="text-xl font-semibold mb-4 line-clamp-2">{question.label}</h3>
+                  <Chart type="donut" options={{
+                    labels: question.options,
+                    legend: {
+                      show: false
+                    }
+                  }} series={seriesData(question)} />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       )}
 
-      <div>
-        {logs.map((log, i) => (
-          <div key={i}>{log}</div>
-        ))}
-      </div>
+      {submitted && (
+        <div>
+          <h2 className="text-3xl mb-6 text-bold">Logs</h2>
+          <div className="bg-slate-800 rounded-lg min-h-[384px] text-gray-50 p-6 font-mono"> {logs.map((log, i) => (
+            <div key={i}>{log}</div>
+          ))}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

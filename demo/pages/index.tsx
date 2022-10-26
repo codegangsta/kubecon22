@@ -8,7 +8,7 @@ const Home: NextPage = () => {
   const [name, setName] = useState("")
 
   return (
-    <div className="bg-gray-100 flex w-screen h-screen items-center justify-center">
+    <div className="container mx-auto flex w-screen pt-16 justify-center px-4">
       <Head>
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
