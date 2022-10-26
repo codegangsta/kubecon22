@@ -174,7 +174,7 @@ ___
 
 ___
 
-## NATS Server Topologies
+## NATS at the Edge
 
 ---
 
@@ -185,7 +185,7 @@ ___
 
 ---
 
-# What is JetStream?
+## Persistence with NATS JetStream
 
 ---
 

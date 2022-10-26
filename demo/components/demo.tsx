@@ -44,9 +44,8 @@ const questions = [
     id: "topic",
     options: [
       "NATS for micro-service architectures",
-      "NATS at the edge",
+      "NATS at the edge with Leaf Nodes",
       "Persistence with NATS JetStream",
-      "NATS Decentralized authentication and authorization",
     ],
   },
   {
