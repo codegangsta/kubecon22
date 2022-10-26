@@ -36,7 +36,8 @@ build-lists: true
 
 ---
 
-## kubecon22.vercel.app
+# NATS is adaptive... And so is this talk
+kubecon22.vercel.app
 
 ---
 
@@ -103,6 +104,10 @@ It aims to **simplify** the number of technologies you use for your services to 
 ---
 
 ## NATS Core Demo
+
+---
+
+## Choose your own adventure time
 
 ---
 
@@ -204,7 +209,7 @@ It is multi-tenant, highly configurable and globally scalable.
 
 ---
 
-**nats-whiteboard.onrender.com/?room=gowest**
+**nats-whiteboard.onrender.com/?room=kubecon22**
 
 ---
 

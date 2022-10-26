@@ -43,10 +43,10 @@ const questions = [
     label: "What topic are you most interested in learning more about?",
     id: "topic",
     options: [
-      "Adaptive server topologies",
-      "Persistence with JetStream",
-      "Authentication and Authorization",
-      "Leaf Nodes",
+      "NATS for micro-service architectures",
+      "NATS at the edge",
+      "Persistence with NATS JetStream",
+      "NATS Decentralized authentication and authorization",
     ],
   },
   {
