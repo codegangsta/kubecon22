@@ -1,6 +1,7 @@
 import { connect, consumerOpts, JSONCodec, Msg, NatsConnection, StringCodec, SubscriptionOptions } from 'nats.ws'
 import React, { useEffect, useRef, useState } from 'react'
 import dynamic from 'next/dynamic'
+import ReactConfetti from 'react-confetti';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
@@ -64,6 +65,7 @@ export const Demo = (props: DemoProps) => {
   const [surveyData, setSurveyData] = useState<Array<any>>([])
   const [logs, setLogs] = useState<Array<string>>([])
   const [submitted, setSubmitted] = useState(false)
+  const [wonLottery, setWonLottery] = useState(false)
 
   const updateSurvey = (k: string, v: string) => {
     survey[k] = v
@@ -99,21 +101,24 @@ export const Demo = (props: DemoProps) => {
     async function natsConnect() {
       const sc = StringCodec();
       const jc = JSONCodec();
+      const server = "ws://0.0.0.0:5222"
 
       if (!nc.current) {
         log("Connecting to NATS...")
-        nc.current = await connect({ servers: ["ws://0.0.0.0:5222"] });
-        log("Connected")
+        nc.current = await connect({ servers: [server] });
+        log(`Connected to ${server}`)
       }
 
       subscribe(nc.current, "kubecon.rolecall", (m) => {
+        log("Recieved message on kubecon.rolecall")
         m.respond(sc.encode(props.name))
-        log("Received a rolecall...")
+        log(`Responded with "${props.name}"`)
       })
 
       subscribe(nc.current, "kubecon.lottery", (m) => {
+        log("🎉 You won the lottery!")
+        setWonLottery(true)
         m.respond(sc.encode(props.name))
-        log("You won the lottery!")
       }, { queue: "lottery" })
 
       subscribe(nc.current, "kubecon.navigate", (m) => {
@@ -202,6 +207,10 @@ export const Demo = (props: DemoProps) => {
           ))}
           </div>
         </div>
+      )}
+
+      {wonLottery && (
+        <ReactConfetti />
       )}
     </div>
   )
