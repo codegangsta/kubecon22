@@ -3,14 +3,15 @@ footer: @thecodegangsta
 background-color: #1E1E1E
 text: #A7ADB2, alignment(left), line-height(0.95), Inter
 header: #ECEDEE, alignment(left), line-height(1), Inter Extra Bold
-text-strong: #FFFFFF, Inter Bold header-strong: #32C9BF
+text-strong: #FFFFFF, Inter Bold 
+header-strong: #32C9BF
 list: bullet-character(•)
 theme: Fira, 5
 slide-transition: true
 slidenumbers: true
 build-lists: true
 
-## Connect all the things! with **NATS**
+## **Connect all the things!** with NATS
 #### Jeremy Saenz and Todd Beets | Synadia
 ---
 
@@ -174,7 +175,11 @@ ___
 
 ___
 
-## NATS at the Edge
+## NATS at the Edge with Leaf Nodes
+
+---
+
+## NATS at a Global Scale
 
 ---
 
@@ -182,6 +187,42 @@ ___
 - **Single Server** - Millions of messages per sec. ~70GiB throughput
 - **Clusters and Superclusters** - Fully meshed groups of servers that can span the globe
 - **Leaf Nodes** - Extend a NATS system with your own private island
+
+---
+
+# Single Server
+
+![inline](images/single_server.png)
+
+---
+
+# Cluster
+
+![inline](images/3_node_cluster.png)
+
+---
+
+# 5 Node Cluster
+
+![inline](images/5_node_cluster.png)
+
+---
+
+# Supercluster
+
+![inline](images/supercluster.png)
+
+---
+
+# Leaf Node
+
+![inline](images/leaf_node.png)
+
+---
+
+# Massive Scale
+
+![inline](images/massive_scale.png)
 
 ---
 
