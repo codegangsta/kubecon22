@@ -62,7 +62,7 @@ export const Demo = (props: DemoProps) => {
 
   const [survey, setSurvey] = useState<any>({ name: props.name })
   const [surveyData, setSurveyData] = useState<Array<any>>([])
-  const [logs, setLogs] = useState([`Welcome, ${props.name}!`])
+  const [logs, setLogs] = useState<Array<string>>([])
   const [submitted, setSubmitted] = useState(false)
 
   const updateSurvey = (k: string, v: string) => {
@@ -72,12 +72,13 @@ export const Demo = (props: DemoProps) => {
 
   const submitSurvey = () => {
     const jc = JSONCodec();
+    log(`Submitting survey: ${JSON.stringify(survey)}`)
     nc.current?.publish("kubecon.survey", jc.encode(survey))
     setSubmitted(true)
   }
 
   const seriesData = (question: Question) => {
-    const data = question.options.map((option, i) => {
+    return question.options.map((option, i) => {
       var n = 0
       surveyData.forEach((data) => {
         if (data[question.id] == option) {
@@ -86,28 +87,39 @@ export const Demo = (props: DemoProps) => {
       })
       return n
     })
-    console.log(data)
-    return data
+  }
+
+  const log = (text: string) => {
+    const d = new Date()
+    text = `[${d.toLocaleTimeString("en-US", { timeStyle: "long" })}] ${text}`
+    setLogs(current => [...current, text])
   }
 
   useEffect(() => {
     async function natsConnect() {
       const sc = StringCodec();
       const jc = JSONCodec();
-      nc.current = await connect({ servers: ["ws://0.0.0.0:5222"] });
+
+      if (!nc.current) {
+        log("Connecting to NATS...")
+        nc.current = await connect({ servers: ["ws://0.0.0.0:5222"] });
+        log("Connected")
+      }
 
       subscribe(nc.current, "kubecon.rolecall", (m) => {
         m.respond(sc.encode(props.name))
-        setLogs(current => [...current, "Received a rolecall..."])
+        log("Received a rolecall...")
       })
 
       subscribe(nc.current, "kubecon.lottery", (m) => {
         m.respond(sc.encode(props.name))
-        setLogs(current => [...current, "You won the lottery!"])
+        log("You won the lottery!")
       }, { queue: "lottery" })
 
       subscribe(nc.current, "kubecon.navigate", (m) => {
-        window.location.replace(sc.decode(m.data))
+        const url = sc.decode(m.data)
+        log(`Navigating to ${url}...`)
+        window.location.replace(url)
       })
 
       // Create jetstream consumer for
@@ -185,7 +197,7 @@ export const Demo = (props: DemoProps) => {
       {submitted && (
         <div>
           <h2 className="text-3xl mb-6 text-bold">Logs</h2>
-          <div className="bg-slate-800 rounded-lg min-h-[384px] text-gray-50 p-6 font-mono"> {logs.map((log, i) => (
+          <div className="bg-slate-800 rounded-lg min-h-[384px] text-gray-50 p-6 font-mono break-all"> {logs.map((log, i) => (
             <div key={i}>{log}</div>
           ))}
           </div>
