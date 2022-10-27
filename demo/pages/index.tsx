@@ -17,10 +17,16 @@ const Home: NextPage = () => {
   }, [])
 
   return (
-    <div className="container mx-auto flex w-screen pt-16 justify-center px-4">
+    <div className="container mx-auto flex flex-col w-screen pt-16 justify-center px-4">
       <Head>
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
+
+      <div className="bg-green-600 shadow rounded-lg mb-8">
+        <div className="px-4 py-5 sm:p-6 font-semibold text-white text-center">
+          Thanks for attending our talk! <a className="font-black" href="https://synadia.com/events/rethink/2022">Join us for a live NATS virtual event</a> on November 10th.
+        </div>
+      </div>
 
       {name == "" && (
         <div className="bg-white shadow rounded-lg">
