@@ -35,6 +35,10 @@ build-lists: true
 
 # Todd Beets
 
+- Long time messaging and services geek
+- Architecture in high-tech and retail
+- Dir. Product solutions at Synadia
+
 ---
 
 # NATS is adaptive... And so is this talk
