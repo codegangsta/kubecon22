@@ -8,6 +8,7 @@ const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 type DemoProps = {
   name: string
   server: string
+  eventName: string
 }
 
 type Question = {
@@ -61,8 +62,9 @@ const questions = [
 
 export const Demo = (props: DemoProps) => {
   const nc = useRef<NatsConnection>()
+  const { eventName, name, server } = props
 
-  const [survey, setSurvey] = useState<any>({ name: props.name })
+  const [survey, setSurvey] = useState<any>({ name: name })
   const [surveyData, setSurveyData] = useState<Array<any>>([])
   const [logs, setLogs] = useState<Array<string>>([])
   const [submitted, setSubmitted] = useState(localStorage.getItem("survey") == "true")
@@ -76,9 +78,9 @@ export const Demo = (props: DemoProps) => {
   const submitSurvey = () => {
     const jc = JSONCodec();
     log(`Submitting survey: ${JSON.stringify(survey)}`)
-    nc.current?.publish("kubecon.survey", jc.encode(survey))
+    nc.current?.publish(`${eventName}.survey`, jc.encode(survey))
     setSubmitted(true)
-    localStorage.setItem("name", props.name)
+    localStorage.setItem("name", name)
     localStorage.setItem("survey", "true")
   }
 
@@ -107,23 +109,23 @@ export const Demo = (props: DemoProps) => {
 
       if (!nc.current) {
         log("Connecting to NATS...")
-        nc.current = await connect({ servers: [props.server] });
-        log(`Connected to ${props.server}`)
+        nc.current = await connect({ servers: [server] });
+        log(`Connected to ${server}`)
       }
 
-      subscribe(nc.current, "kubecon.rolecall", (m) => {
-        log("Recieved message on kubecon.rolecall")
-        m.respond(sc.encode(props.name))
-        log(`Responded with "${props.name}"`)
+      subscribe(nc.current, `${eventName}.rolecall`, (m) => {
+        log(`Recieved message on ${eventName}.rolecall`)
+        m.respond(sc.encode(name))
+        log(`Responded with "${name}"`)
       })
 
-      subscribe(nc.current, "kubecon.lottery", (m) => {
+      subscribe(nc.current, `${eventName}.lottery`, (m) => {
         log("🎉 You won the lottery!")
         setWonLottery(true)
-        m.respond(sc.encode(props.name))
+        m.respond(sc.encode(name))
       }, { queue: "lottery" })
 
-      subscribe(nc.current, "kubecon.navigate", (m) => {
+      subscribe(nc.current, `${eventName}.navigate`, (m) => {
         const url = sc.decode(m.data)
         log(`Navigating to ${url}...`)
         window.location.replace(url)
@@ -132,14 +134,14 @@ export const Demo = (props: DemoProps) => {
       // Create jetstream consumer for
       const opts = consumerOpts()
       opts.orderedConsumer()
-      const sub = await nc.current.jetstream().subscribe("kubecon.survey", opts)
+      const sub = await nc.current.jetstream().subscribe(`${eventName}.survey`, opts)
       for await (const m of sub) {
         setSurveyData(current => [...current, jc.decode(m.data)])
       }
     }
 
     natsConnect()
-  }, [props.name, props.server])
+  }, [name, server])
 
   return (
     <div>

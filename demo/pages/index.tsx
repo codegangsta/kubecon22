@@ -3,7 +3,8 @@ import Head from 'next/head'
 import { useEffect, useState } from 'react'
 import { Demo } from '../components/demo'
 
-const server = process.env.NEXT_PUBLIC_NATS_SERVER_URL || ""
+const server = process.env.NEXT_PUBLIC_NATS_SERVER_URL || "ws://0.0.0.0:5222"
+const eventName = process.env.NEXT_PUBLIC_EVENT_NAME || "my_event"
 
 const Home: NextPage = () => {
   const [text, setText] = useState("")
@@ -22,16 +23,10 @@ const Home: NextPage = () => {
         <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
       </Head>
 
-      <div className="bg-green-600 shadow rounded-lg mb-8">
-        <div className="px-4 py-5 sm:p-6 font-semibold text-white text-center">
-          Thanks for attending our talk! <a className="font-black" href="https://synadia.com/events/rethink/2022">Join us for a live NATS virtual event</a> on November 10th.
-        </div>
-      </div>
-
       {name == "" && (
         <div className="bg-white shadow rounded-lg">
           <div className="px-4 py-5 sm:p-6">
-            <h3 className="text-lg font-medium leading-6 text-gray-900">NATS Kubecon 2022 Demo</h3>
+            <h3 className="text-lg font-medium leading-6 text-gray-900">NATS {eventName} Demo</h3>
             <div className="mt-2 max-w-xl text-sm text-gray-500">
               <p>🎉 To kick off the demo, let&apos;s start with your name</p>
             </div>
@@ -61,7 +56,7 @@ const Home: NextPage = () => {
       )}
 
       {name != "" && (
-        <Demo name={name} server={server} />
+        <Demo name={name} server={server} eventName={eventName} />
       )}
 
     </div>
