@@ -58,7 +58,6 @@ const Home: NextPage = () => {
       {name != "" && (
         <Demo name={name} server={server} eventName={eventName} />
       )}
-
     </div>
   )
 }
