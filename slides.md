@@ -15,10 +15,6 @@ build-lists: true
 #### Jeremy Saenz | Synadia
 ---
 
-# About Us
-
----
-
 # Jeremy Saenz
 
 
@@ -34,7 +30,7 @@ build-lists: true
 ---
 
 # NATS is adaptive... And so is this talk
-kubecon22.vercel.app
+guildcon22.vercel.app
 
 ---
 
@@ -246,7 +242,7 @@ It is multi-tenant, highly configurable and globally scalable.
 
 ---
 
-**nats-whiteboard.onrender.com/?room=kubecon22**
+**nats-whiteboard.onrender.com/?room=guildcon22**
 
 ---
 
