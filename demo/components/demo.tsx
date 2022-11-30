@@ -51,11 +51,13 @@ const questions = [
     ],
   },
   {
-    label: "Who is more likely to win in an arm wrestling match?",
-    id: "todd_or_jeremy",
+    label: "How familiar are you with microservices?",
+    id: "microservices",
     options: [
-      "Jeremy",
-      "Todd",
+      "I am still learning the concepts of microservices",
+      "I am in the process of building a microservices-based application",
+      "I am running microservices in production and loving it!",
+      "I have felt pain with developing or productionizing microservices"
     ],
   },
 ]
@@ -131,7 +133,6 @@ export const Demo = (props: DemoProps) => {
         window.location.replace(url)
       })
 
-      // Create jetstream consumer for
       const opts = consumerOpts()
       opts.orderedConsumer()
       const sub = await nc.current.jetstream().subscribe(`${eventName}.survey`, opts)
