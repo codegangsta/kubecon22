@@ -12,7 +12,7 @@ slidenumbers: true
 build-lists: true
 
 ## **Connect all the things!** with NATS
-#### Jeremy Saenz and Todd Beets | Synadia
+#### Jeremy Saenz | Synadia
 ---
 
 # About Us
@@ -30,14 +30,6 @@ build-lists: true
 
 [.column]
 ![inline 75%](https://avatars.githubusercontent.com/u/178316?v=4)
-
----
-
-# Todd Beets
-
-- Long time messaging and services geek
-- Architecture in high-tech and retail
-- Dir. Product solutions at Synadia
 
 ---
 
