@@ -46,18 +46,18 @@ const questions = [
     options: [
       "NATS for micro-service architectures",
       "Persistence with NATS JetStream",
-      "NATS at the edge with Leaf Nodes",
+      "NATS at the Edge with Leaf Nodes",
       "Scaling NATS globally with Clusters and Superclusters",
     ],
   },
   {
-    label: "How familiar are you with microservices?",
-    id: "microservices",
+    label: "How familiar are you with the Edge?",
+    id: "edge",
     options: [
-      "I am still learning the concepts of microservices",
-      "I am in the process of building a microservices-based application",
-      "I am running microservices in production and loving it!",
-      "I have felt pain with developing or productionizing microservices"
+      "I am still learning the concepts of Edge",
+      "I am in the process of implementing Edge deployments at my organization",
+      "I am running at the Edge and loving it!",
+      "I have felt pain with developing or and running at the Edge"
     ],
   },
 ]
