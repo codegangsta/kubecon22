@@ -1,5 +1,5 @@
 autoscale: true
-footer: @thecodegangsta
+footer: @synadia
 background-color: #1E1E1E
 text: #A7ADB2, alignment(left), line-height(0.95), Inter
 header: #ECEDEE, alignment(left), line-height(1), Inter Extra Bold
@@ -11,7 +11,7 @@ slide-transition: true
 slidenumbers: true
 build-lists: true
 
-## **Connect all the things!** with NATS
+## **Rethinking Connectivity** Hyper-connectivity and the Intelligent Edge
 #### Jeremy Saenz | Synadia
 ---
 
@@ -19,9 +19,8 @@ build-lists: true
 
 
 [.column]
-- Long time Gopher (@thecodegangsta)
-- Author of **Martini**, **CLI**, **Negroni**, and more...
-- Working @synadia on **NATS**
+- Long time software engineer in multiple industries
+- Currently working @synadia on **NATS**
 - Moved from Engineer -> Product and back again
 
 [.column]
@@ -30,7 +29,7 @@ build-lists: true
 ---
 
 # NATS is adaptive... And so is this talk
-guildcon22.vercel.app
+grandslam.vercel.app
 
 ---
 
@@ -100,74 +99,24 @@ It aims to **simplify** the number of technologies you use for your services to 
 
 ---
 
-## Choose your own adventure time
+## Intelligent Persistence with NATS JetStream
 
 ---
 
-## NATS For Micro-service Architectures
+# What is JetStream?
+JetStream is a next-gen persistence layer built on top of NATS Core that stores.
+
+It is multi-tenant, highly configurable and globally scalable.
 
 ---
 
-# What makes a good architecture?
-- Resilient
-- Secure
-- Observable
-- Extensible
-- Adaptive to change
-
-___
-
-# Resilience
-- **Clients** self heal and reconnect to available servers automatically
-- **Servers** protect themselves at all costs
-- **Failover** to other Geos/Clouds is **automatic**
-- **Load balancing** comes for **free**
-
-___
-
-# Secure Multi-tenancy
-- **Decentralize** authentication and authorization
-- **Isolate** NATS environments via **Accounts**
-- **Share** streams and services between accounts
-- **Enforce** resource limits for tenants
-- **Create** permissions for each service without server changes
-
-___
-
-# Location Transparency
-Location transparency is a key characteristic of service-oriented architecture.
-
-Consumers of a service do not know a service's location until they locate it in the registry.
-
-The lookup and dynamic binding to a service at runtime allows the service implementation to move from location to location without the client's knowledge.
-
----
-
-# Location Transparency
-- Free **Service Discovery** via subject based addressing
-- **Easily move** services between cloud providers
-- **Automatically** get routed to the closest responder
-- **Traffic Shaping** and **Subject mapping**
-
-___
-
-# Observability
-- **Observe traffic** in real time
-- **Gather latency metrics** on each of your services via exports
-- **Filter metrics ingestion** via subjects
-
-___
-
-# Multi-pattern development
-- Synchronous **Request** and **Reply**
-- Asynchronous **Publish** and **Subscribe**
-- **Streaming** with NATS JetStream
-    - Key/Value and Object store
-- All with multi-language support!
-
-___
-
-## NATS at the Edge with Leaf Nodes
+# What is JetStream?
+- **Secure** data streams with **multiple consumer models**
+- **Multiple streaming patterns** supported (queues, logs, replays, compaction)
+- **Multiple QOS** supported (at least once, exactly once)
+- **Digital twins**/**replicated data**
+- **Mux** and **Demux** data
+- **Materialized views:** key/value and object stores
 
 ---
 
@@ -218,31 +167,38 @@ ___
 
 ---
 
-## Persistence with NATS JetStream
+## NATS at the Edge with Leaf Nodes
 
 ---
 
-# What is JetStream?
-JetStream is a next-gen persistence layer built on top of NATS Core that allows temporal decoupling between subscribers and publishers.
-
-It is multi-tenant, highly configurable and globally scalable.
-
----
-
-# What is JetStream
-- **Secure** data streams with **multiple consumer models**
-- **Multiple streaming patterns** supported
-- **Digital twins**/**replicated data**
-- **Mux** and **Demux** data
-- **Materialized views:** key/value and object stores
+# What is a leaf node?
+- An extension to a NATS system of any size
+- Supports separate operation/security domains
+- Can operate normally without a connection to the hub
 
 ---
 
-## JetStream Demo
+# What are leaf nodes good for?
+- Extending a hub (hub and spoke topologies)
+- Bridging NATS systems
+- Connectivity at the Edge
+    - Store and forward
+    - Command and Control
+    - Fleet Management
 
 ---
 
-**nats-whiteboard.onrender.com/?room=guildcon22**
+# Leaf node use cases
+- Factories -> Cloud
+- Retail Sites -> Cloud
+- Planes, Trains, Automobiles
+
+---
+
+# Leaf node use cases
+- Partner sites
+- OEM
+- Multi-prem deployment
 
 ---
 
